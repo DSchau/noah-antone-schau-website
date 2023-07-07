@@ -1,50 +1,50 @@
 ---
+import { Picture } from '@astrojs/image/components';
+
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+import { getAllPhotos } from '../lib/get-all-photos'
+
+const photos = await getAllPhotos()
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
+		<header>
+			<h1><span class="text-gradient">Noah Antone Schau</span></h1>
+		</header>
+		<ul class="photos">
+		{photos.map(src => (
+			<li>
+				<Picture
+					src={`https://dschau-pictures.imgix.net${src}`}
+					widths={[200, 400, 1600]}
+					aspectRatio={853 / 568}
+					sizes="(max-width: 1600px) 100vw, 1600px"
+					alt="descriptive text"
+				/>
+		</li>
+		))}
 		</ul>
 	</main>
 </Layout>
 
 <style>
-	main {
+	header {
 		margin: auto;
 		padding: 1.5rem;
 		max-width: 60ch;
+	}
+
+	main .photos {
+		max-width: 100%;
 	}
 	h1 {
 		font-size: 3rem;
 		font-weight: 800;
 		margin: 0;
+
+		text-align: center;
 	}
 	.text-gradient {
 		background-image: var(--accent-gradient);
@@ -77,5 +77,17 @@ import Card from '../components/Card.astro';
 		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
 		gap: 1rem;
 		padding: 0;
+	}
+
+	.photos {
+		margin: 0;
+		padding: 0;
+	}
+
+	.photos > li {
+		list-style-type: none;
+		padding-left: 0;
+
+		margin: 1rem 0;
 	}
 </style>
