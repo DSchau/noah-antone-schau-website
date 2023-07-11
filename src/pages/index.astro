@@ -1,5 +1,5 @@
 ---
-import { Picture } from '@astrojs/image/components';
+import { Image } from "@unpic/astro";
 
 import Layout from '../layouts/Layout.astro';
 
@@ -16,12 +16,10 @@ const photos = await getAllPhotos()
 		<ul class="photos">
 		{photos.map(src => (
 			<li>
-				<Picture
+				<Image
 					src={`https://dschau-pictures.imgix.net${src}`}
-					widths={[200, 400, 1600]}
-					aspectRatio={853 / 568}
-					sizes="(max-width: 1600px) 100vw, 1600px"
-					alt="descriptive text"
+					layout="fullWidth"
+					alt="TODO, make descriptive or use AI or something who knows"
 				/>
 		</li>
 		))}

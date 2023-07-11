@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/image": "^0.17.2",
     "@astrojs/netlify": "^2.3.0",
+    "@unpic/astro": "^0.0.21",
     "astro": "^2.8.0"
   },
   "devDependencies": {
