@@ -13,7 +13,10 @@
     "@astrojs/image": "^0.17.2",
     "@astrojs/netlify": "^2.3.0",
     "@unpic/astro": "^0.0.21",
-    "astro": "^2.8.0"
+    "@unpic/placeholder": "^0.1.2",
+    "astro": "^2.8.0",
+    "blurhash": "^2.0.5",
+    "rm": "^0.1.8"
   },
   "devDependencies": {
     "@types/node": "^20.4.0"

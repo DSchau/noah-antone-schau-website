@@ -1,11 +1,23 @@
 ---
 import { Image } from "@unpic/astro";
+import { blurhashToCssGradientString } from "@unpic/placeholder";
 
 import Layout from '../layouts/Layout.astro';
 
 import { getAllPhotos } from '../lib/get-all-photos'
 
-const photos = await getAllPhotos()
+const photoSrcs = await getAllPhotos()
+
+let photos = []
+
+for (const src of photoSrcs) {
+	const fullSrc = `https://dschau-pictures.imgix.net${src}`
+
+	photos.push({
+		src: fullSrc,
+		blurhash: await fetch(`${fullSrc}?fm=blurhash&$w=50`).then(res => res.text())
+	})
+}
 ---
 
 <Layout title="Welcome to Astro.">
@@ -14,15 +26,19 @@ const photos = await getAllPhotos()
 			<h1><span class="text-gradient">Noah Antone Schau</span></h1>
 		</header>
 		<ul class="photos">
-		{photos.map(src => (
-			<li>
-				<Image
-					src={`https://dschau-pictures.imgix.net${src}`}
-					layout="fullWidth"
-					alt="TODO, make descriptive or use AI or something who knows"
-				/>
-		</li>
-		))}
+		{photos.map(photo => {
+			const placeholder = blurhashToCssGradientString(photo.blurhash);
+			return (
+				<li>
+					<Image
+						src={photo.src}
+						background={placeholder}
+						layout="fullWidth"
+						alt="TODO, make descriptive or use AI or something who knows"
+					/>
+			</li>
+			)
+		})}
 		</ul>
 	</main>
 </Layout>
